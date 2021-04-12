@@ -43,7 +43,7 @@ Sorry if the syntax isn't 100% correct. There's the main points of difference:
 
 The nice thing about this is that I was able to use my DXUQ unit tests to also test my translator, after a few modifications. Here's an example input, from one of our more complicated tests:
 
-```
+```Racket
 {let
   {fact = {fn {n} 0}}
 in
@@ -95,7 +95,7 @@ That being said, I dont' support the full DXUQ syntax. The big thing not support
 
 Here's the "glue" code. Note that this code is probably not complete, but works for my test cases. I didn't go for 100% code coverage.
 
-```Swfit
+```Swift
 func integer(from value: Any) -> Int64? {
     if let value = value as? Int { return Int64(value) }
     if let value = value as? Int8 { return Int64(value) }
