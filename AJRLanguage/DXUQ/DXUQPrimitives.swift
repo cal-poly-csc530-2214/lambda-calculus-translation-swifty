@@ -122,12 +122,12 @@ public struct Primitive {
             var string = "{ () -> Any in\n"
             for (index, arg) in args.enumerated() {
                 if index == args.count - 1 {
-                    string += "    return \(arg.swiftString(in: env.indented))\n"
+                    string += "\(String.indent(by:env.indent + 1))return \(arg.swiftString(in: env.indented))\n"
                 } else {
-                    string += "    _ = \(arg.swiftString(in: env.indented))\n" // Because we're ignoring the return value.
+                    string += "\(String.indent(by:env.indent + 1))_ = \(arg.swiftString(in: env.indented))\n" // Because we're ignoring the return value.
                 }
             }
-            string += "}()"
+            string += "\(String.indent(by:env.indent))}()"
             return string
         }),
         Primitive(name: "equal?", body: PrimitiveBody.valueBody({ (values, env) -> Value in
@@ -145,12 +145,12 @@ public struct Primitive {
             // TODO: Deal with indent
             try checkArgumentCount("if", values: args, count: 3)
             var string = "{() -> Any in\n"
-            string += "    if \(args[0].swiftString(in: env.indented)) {\n"
-            string += "        return \(args[1].swiftString(in: env.indented))\n"
-            string += "    } else {\n"
-            string += "        return \(args[2].swiftString(in: env.indented))\n"
-            string += "    }\n"
-            string += "}()"
+            string += "\(String.indent(by:env.indent + 1))if \(args[0].swiftString(in: env.indented)) {\n"
+            string += "\(String.indent(by:env.indent + 2))return \(args[1].swiftString(in: env.indented))\n"
+            string += "\(String.indent(by:env.indent + 1))} else {\n"
+            string += "\(String.indent(by:env.indent + 2))return \(args[2].swiftString(in: env.indented))\n"
+            string += "\(String.indent(by:env.indent + 1))}\n"
+            string += "\(String.indent(by:env.indent + 0))}()"
             return string
         }),
         Primitive(name: "new-array", body: PrimitiveBody.valueBody({ (values, env) -> Value in

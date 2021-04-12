@@ -7,6 +7,14 @@
 
 import Foundation
 
+public extension String {
+
+    static func indent(by indent: Int) -> String {
+        return String(repeating: " ", count: indent * 4)
+    }
+
+}
+
 public protocol ExprC : CustomStringConvertible {
 
     func unparse() -> String
@@ -232,11 +240,11 @@ public struct LetC : ExprC {
         for variable in variables {
             // TODO: We should really check and see if there's an assignment to the variable, if there is, then we should declare it as var rather than let.
             // Thankfully, Swift will infer the type.
-            string += "    \(body.mutates(symbol: variable.variable) ? "var" : "let") \(variable.variable) = \(variable.argument.swiftString(in: env.indented))\n"
+            string += "\(String.indent(by:env.indent + 1))\(body.mutates(symbol: variable.variable) ? "var" : "let") \(variable.variable) = \(variable.argument.swiftString(in: env))\n"
             string += "\n"
-            string += "    return \(body.swiftString(in: env.indented))\n"
+            string += "\(String.indent(by:env.indent + 1))return \(body.swiftString(in: env.indented))\n"
         }
-        string += "}\n"
+        string += "\(String.indent(by:env.indent))}\n"
         return string
     }
 
@@ -273,7 +281,7 @@ public struct SetC : ExprC {
     }
 
     public func swiftString(in env: Environment) -> String {
-        return "\(variable) = \(argument.swiftString(in: env.indented))"
+        return "\(variable) = \(argument.swiftString(in: env))"
     }
 
     public func mutates(symbol: Symbol) -> Bool {
