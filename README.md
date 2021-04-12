@@ -89,7 +89,7 @@ Some notes here:
 
 ## Type Checking
 
-That being said, I dont' support the full DXUQ syntax. The big thing not support is that I based my work on the version of DXUQ just prior to supporting typing. The problem this caused is that Swift is actually a strongly typed langauge. This leads to the problem when generating Swift code, in that Swift wants me to declare the argument and return type of everything. To get around this issue, I made everything in Swift return `Any`, which is the way the program can tell Swift that the type can be, well, anything. This creates further problems in that basic Swift operators don't work on `Any`, like `+` or `*`. To get around that, I added a bunch of "glue" code to make this work. **This is a horribly bad thing to do, and should never be done in production code!** But, for the purposes of our exercise, it works pretty well. 
+That being said, I dont' support the full DXUQ syntax. The big thing not support is that I based my work on the version of DXUQ just prior to supporting typing. The problem this caused is that Swift is actually a strongly typed langauge. This leads to the problem when generating Swift code, in that Swift wants me to declare the argument and return type of everything. To get around this issue, I made everything in Swift return `Any`, which is the way the program can tell Swift that the type can be, well, anything. This creates further problems in that basic Swift operators don't work on `Any`, like `+` or `*`. To get around that, I added a bunch of "glue" code to make this work. ***This is a horribly bad thing to do, and should never be done in production code!*** But, for the purposes of our exercise, it works pretty well. 
 
 ## Glue Code
 
